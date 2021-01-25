@@ -1,5 +1,10 @@
 import styled from 'styled-components'
-import db from '../db.json'
+import db from '../db.json';
+import Widget from '../src/components/Widget'
+import QuizLogo from '../src/components/QuizLogo'
+import QuizBackground from '../src/components/QuizBackground'
+import Footer from '../src/components/Footer'
+import GitHubCorner from '../src/components/GitHubCorner'
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -12,24 +17,11 @@ export const QuizContainer = styled.div`
   }
 `;
 
-export const QuizBackground = styled.div`
-  background-image: url(${db.bg});
-`
-
-export const QuizLogo = styled.div`
-`
-
-export const Widget = styled.div`
-`
-
-export const Footer = styled.div`
-`
-
 export default function Home() {
 	return (
-		<QuizBackground>
+		<QuizBackground backgroundImage={db.bg}>
 			<QuizContainer>
-				<QuizLogo/>
+				<QuizLogo />
 				<Widget>
 					<Widget.Header>
 						<h1>{db.title}</h1>
@@ -46,8 +38,9 @@ export default function Home() {
 						<p>lorem ipsum dolor sit amet...</p>
 					</Widget.Content>
 				</Widget>
-				<Footer/>
+				<Footer />
 			</QuizContainer>
+			<GitHubCorner projectUrl="https://github.com/icarosuper/Imersao-React-Alura" />
 		</QuizBackground>
 	);
 }
