@@ -8,6 +8,7 @@ import Footer from '../src/Components/Footer';
 import GitHubCorner from '../src/Components/GitHubCorner';
 import Input from '../src/Components/Input';
 import Button from '../src/Components/Button';
+import styled from "styled-components";
 
 export const QuizContainer = styled.div`
   width: 100%;
