@@ -6,7 +6,8 @@ import QuizLogo from '../src/Components/QuizLogo';
 import QuizBackground from '../src/Components/QuizBackground';
 import Footer from '../src/Components/Footer';
 import GitHubCorner from '../src/Components/GitHubCorner';
-import styled from "styled-components";
+import Input from '../src/Components/Input';
+import Button from '../src/Components/Button';
 
 export const QuizContainer = styled.div`
   width: 100%;

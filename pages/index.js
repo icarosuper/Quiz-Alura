@@ -9,6 +9,8 @@ import QuizLogo from '../src/Components/QuizLogo';
 import QuizBackground from '../src/Components/QuizBackground';
 import Footer from '../src/Components/Footer';
 import GitHubCorner from '../src/Components/GitHubCorner';
+import Input from '../src/Components/Input';
+import Button from '../src/Components/Button';
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -48,16 +50,15 @@ export default function Home() {
 							event.preventDefault();
 							router.push(`/quiz?name=${nome}`)
 						}}>
-							<input
+							<Input
 								onChange={ event => {
 									setName(event.target.value);
 								}}
 								placeholder="Dê seu nome"
 							/>
-							<br/>
-							<button type="submit" disabled={!nome.length}>
+							<Button type="submit" disabled={!nome.length}>
 								Jogar { nome ? `como '${nome}'` : '' }
-							</button>
+							</Button>
 						</form>
 					</Widget.Content>
 				</Widget>
