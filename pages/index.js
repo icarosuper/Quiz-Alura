@@ -54,6 +54,7 @@ export default function Home() {
 								}}
 								placeholder="Dê seu nome"
 							/>
+							<br/>
 							<button type="submit" disabled={!nome.length}>
 								Jogar { nome ? `como '${nome}'` : '' }
 							</button>
