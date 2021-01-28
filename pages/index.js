@@ -28,7 +28,7 @@ export default function Home() {
 	const [nome, setName] = React.useState('');
 
 	return (
-		<QuizBackground backgroundImage={db.bg}>
+		<QuizBackground backgroundImage={db.bg[0]}>
 			<Head>
 				<link rel="preconnect" href="https://fonts.gstatic.com"/>
 				<link

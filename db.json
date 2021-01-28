@@ -1,28 +1,32 @@
 {
-	"bg": "https://miro.medium.com/max/1920/1*NPOpTo-xMNwdoqRgN359Yg.jpeg",
-	"title": "Quiz de CSS",
-	"description": "Complete o quiz e mostre seus conhecimentos sobre CSS",
+	"bg": ["https://img2.gelbooru.com/images/da/1e/da1e5aeeca86588f65e33ffaa9fe65b4.jpg",
+		"https://pbs.twimg.com/media/EiRRU-QUYAExmdB?format=jpg&name=4096x4096",
+		"https://img2.gelbooru.com/images/3e/ab/3eab139de5c9801c2d4aea2fa5c62cbb.jpg"],
+	"title": "Quiz de Kemono Friends",
+	"description": "Complete o quiz e mostre seus conhecimentos sobre Kemono Friends",
 	"questions": [
 	  {
-		"image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
-		"title": "Como fazer um seletor por id via CSS?",
+		"image": "https://im.ezgif.com/tmp/ezgif-1-c96a7c94f01f.gif",
+		"title": "Qual é a arma principal de Kaban?",
 		"description": "Essa é pra aquecer",
-		"answer": 2,
+		"answer": 1,
 		"alternatives": [
-		  ".elemento",
-		  "*elemento",
-		  "#elemento",
-		  "%elemento"
+			"Uma bola de borracha",
+			"Um avião de papel",
+			"Lucky Beast",
+			"Bolinhas de Gude"
 		]
 	  },
 	  {
-		"image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
-		"title": "Como fazer um background gradiente com css?",
-		"description": "Faz tempo em haha",
-		"answer": 0,
+		"image": "https://im.ezgif.com/tmp/ezgif-1-212adb8985be.gif",
+		"title": "Que friend não é boa em fazer expressões faciai?",
+		"description": "Essa é complicada hein!",
+		"answer": 3,
 		"alternatives": [
-		   "background: linear-gradient(#e66465, #9198e5);",
-		   "background: gradient(#e66465, #9198e5);"
+			"Shoebill",
+			"Raposa Tibetana",
+			"Crested Ibis Japonesa",
+			"Todas as opções acima"
 		]
 	  }
 	],
