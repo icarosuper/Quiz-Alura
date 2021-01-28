@@ -6,6 +6,7 @@ import QuizLogo from '../src/Components/QuizLogo';
 import QuizBackground from '../src/Components/QuizBackground';
 import Button from '../src/Components/Button';
 import QuizContainer from "../src/Components/QuizContainer";
+import {useRouter} from "next/router";
 
 function LoadingWidget() {
 	return (
@@ -21,7 +22,40 @@ function LoadingWidget() {
 	);
 }
 
-function QuestionWidget({question, questionIndex, totalQuestions, onSubmit}) {
+function ResultWidget({results}) {
+	let acertos = 0;
+	return (
+		<Widget>
+			<Widget.Header>
+				<h1>Desafio concluído! Veja abaixo seus resultados:</h1>
+			</Widget.Header>
+
+			<Widget.Content>
+				<h2>
+					Ao todo, você acertou{' '}
+					{acertos = results.filter(x => x).length}
+					{acertos === 1 ? ' questão' : ' questões'}.
+				</h2>
+
+				<Widget.Content>
+					{db.questions.map((el, index) => (
+						<Widget.Topic
+							style={results[index] ? {backgroundColor: 'green'} : {backgroundColor: 'red'}}
+							key={index}>
+							<h2>{el.title}</h2><br/>
+							<h3>{el.alternatives[el.answer]}.</h3>
+						</Widget.Topic>
+					))}
+				</Widget.Content>
+			</Widget.Content>
+		</Widget>
+	);
+}
+
+function QuestionWidget({
+	                        question, questionIndex, totalQuestions, onSubmit,
+	                        handleSelectedQuestion, btnState, btnValidation
+                        }) {
 	const questionId = `question__${questionIndex}`;
 	return (
 		<Widget>
@@ -49,9 +83,12 @@ function QuestionWidget({question, questionIndex, totalQuestions, onSubmit}) {
 				</p>
 
 				<form
-					onSubmit={(infosDoEvento) => {
-						infosDoEvento.preventDefault();
+					id='altForm'
+					onSubmit={(event) => {
+						event.preventDefault();
 						onSubmit();
+						if (btnState)
+							document.getElementById('altForm').reset();
 					}}
 				>
 					{question.alternatives.map((alternative, alternativeIndex) => {
@@ -59,20 +96,24 @@ function QuestionWidget({question, questionIndex, totalQuestions, onSubmit}) {
 						return (
 							<Widget.Topic
 								as="label"
+								id={alternativeIndex}
+								key={alternativeId}
 								htmlFor={alternativeId}
 							>
 								<input
 									id={alternativeId}
 									name={questionId}
+									onChange={() => handleSelectedQuestion(alternativeIndex)}
 									type="radio"
+									disabled={btnState}
 								/>
 								{alternative}
 							</Widget.Topic>
 						);
 					})}
 
-					<Button type="submit">
-						Confirmar
+					<Button type="submit" disabled={btnValidation === undefined}>
+						{btnState ? 'Avançar para próxima pergunta' : 'Confirmar reposta'}
 					</Button>
 				</form>
 			</Widget.Content>
@@ -87,29 +128,54 @@ const screenStates = {
 };
 
 export default function QuizPage() {
-	const [screenState, setScreenState] = React.useState(screenStates.LOADING);
-	const totalQuestions = db.questions.length;
+	const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
+	const [btnState, setBtnState] = React.useState(0);
+	const [screenState, setScreenState] = React.useState(screenStates.QUIZ);
 	const [currentQuestion, setCurrentQuestion] = React.useState(0);
+	const [results, setResults] = React.useState([]);
+
+	const totalQuestions = db.questions.length;
 	const questionIndex = currentQuestion;
 	const question = db.questions[questionIndex];
 
-	React.useEffect(() => {
-		setTimeout(() => {
-			setScreenState(screenStates.QUIZ);
-		}, 1 * 1000);
-	}, []);
+	const addResult = result => {
+		setResults([...results, result])
+	}
 
-	function handleSubmitQuiz() {
+	const handleSubmitQuiz = () => {
+		if (btnState)
+			return nextPage();
+
+		questionValidation();
+
+		setBtnState(1);
+	}
+
+	const questionValidation = () => {
+		document.getElementById(`${db.questions[questionIndex].answer}`).style.backgroundColor = 'green';
+		if (selectedAlternative !== db.questions[questionIndex].answer)
+			document.getElementById(`${selectedAlternative}`).style.backgroundColor = 'red';
+		else
+			addResult(true);
+	}
+
+	const nextPage = () => {
 		const nextQuestion = questionIndex + 1;
 		if (nextQuestion < totalQuestions) {
 			setCurrentQuestion(nextQuestion);
 		} else {
 			setScreenState(screenStates.RESULT);
 		}
+		setBtnState(0);
+		setSelectedAlternative(undefined);
+
+		for(let i = 0; i < 4; i++){
+			document.getElementById(`${i}`).style.backgroundColor = `${db.theme.colors.primary}40`;
+		}
 	}
 
 	return (
-		<QuizBackground backgroundImage={db.bg[questionIndex+1]}>
+		<QuizBackground backgroundImage={db.bg[questionIndex + 1]}>
 			<QuizContainer>
 				<QuizLogo/>
 				{screenState === screenStates.QUIZ && (
@@ -118,12 +184,15 @@ export default function QuizPage() {
 						questionIndex={questionIndex}
 						totalQuestions={totalQuestions}
 						onSubmit={handleSubmitQuiz}
+						handleSelectedQuestion={index => setSelectedAlternative(index)}
+						btnState={btnState}
+						btnValidation={selectedAlternative}
 					/>
 				)}
 
 				{screenState === screenStates.LOADING && <LoadingWidget/>}
 
-				{screenState === screenStates.RESULT && <div>Você acertou X questões, parabéns!</div>}
+				{screenState === screenStates.RESULT && <ResultWidget results={results}/>}
 			</QuizContainer>
 		</QuizBackground>
 	);

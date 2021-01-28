@@ -6,7 +6,7 @@
 	"description": "Complete o quiz e mostre seus conhecimentos sobre Kemono Friends",
 	"questions": [
 	  {
-		"image": "https://im.ezgif.com/tmp/ezgif-1-c96a7c94f01f.gif",
+		"image": "https://i.imgur.com/Wva2T5K.gif",
 		"title": "Qual é a arma principal de Kaban?",
 		"description": "Essa é pra aquecer",
 		"answer": 1,
@@ -18,8 +18,8 @@
 		]
 	  },
 	  {
-		"image": "https://im.ezgif.com/tmp/ezgif-1-212adb8985be.gif",
-		"title": "Que friend não é boa em fazer expressões faciai?",
+		"image": "https://media.giphy.com/media/ZUO3W9Vw3mCMmZRKSr/giphy.gif",
+		"title": "Quem aí não é bom em fazer expressões faciai?",
 		"description": "Essa é complicada hein!",
 		"answer": 3,
 		"alternatives": [
