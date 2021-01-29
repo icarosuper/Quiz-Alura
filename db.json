@@ -19,7 +19,7 @@
 	  },
 	  {
 		"image": "https://media.giphy.com/media/ZUO3W9Vw3mCMmZRKSr/giphy.gif",
-		"title": "Quem aí não é bom em fazer expressões faciai?",
+		"title": "Quem aí não é bom em fazer expressões faciais?",
 		"description": "Essa é complicada hein!",
 		"answer": 3,
 		"alternatives": [
@@ -31,7 +31,8 @@
 	  }
 	],
 	"external": [
-	  ""
+		"https://aluraquiz-css.omariosouto.vercel.app/",
+		"https://aluraquiz-marvel.omariosouto.vercel.app/"
 	],
 	"theme": {
 	  "colors": {

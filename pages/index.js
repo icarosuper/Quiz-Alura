@@ -65,11 +65,22 @@ export default function Home() {
 
 				<Widget>
 					<Widget.Header>
-						<h1>Outros quizes:</h1>
+						<h1>Quizes dos outros alunos:</h1>
 					</Widget.Header>
 					<Widget.Content>
-						<h2>{db.title}</h2>
-						<h3>{db.description}</h3>
+						{db.external.map(el => {
+							const [proj, user] = el
+								.replace('https:', '')
+								.replace(/\//g, '')
+								.replace('.vercel.app', '')
+								.split('.');
+
+							return (
+								<Widget.Topic href={el}>
+									{`'${proj}' por ${user}`}
+								</Widget.Topic>
+							);
+						})}
 					</Widget.Content>
 				</Widget>
 				<Footer/>

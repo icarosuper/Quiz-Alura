@@ -23,11 +23,12 @@ function LoadingWidget() {
 }
 
 function ResultWidget({results}) {
+	const router = useRouter();
 	let acertos = 0;
 	return (
 		<Widget>
 			<Widget.Header>
-				<h1>Desafio concluído! Veja abaixo seus resultados:</h1>
+				<h1>Desafio concluído {router.query.name}! Veja abaixo seus resultados:</h1>
 			</Widget.Header>
 
 			<Widget.Content>
@@ -47,6 +48,12 @@ function ResultWidget({results}) {
 						</Widget.Topic>
 					))}
 				</Widget.Content>
+
+				<Button
+					onClick={() => router.push('/')}
+					style={{backgroundColor: db.theme.colors.primary}}>
+					<p>Voltar para a página inicial</p>
+				</Button>
 			</Widget.Content>
 		</Widget>
 	);
@@ -103,7 +110,7 @@ function QuestionWidget({
 								<input
 									id={alternativeId}
 									name={questionId}
-									onChange={() => handleSelectedQuestion(alternativeIndex)}
+									onClick={() => handleSelectedQuestion(alternativeIndex)}
 									type="radio"
 									disabled={btnState}
 								/>
