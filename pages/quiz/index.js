@@ -6,6 +6,8 @@ import QuestionWidget from "../../src/Components/QuestionWidget";
 import ResultWidget from "../../src/Components/ResultWidget";
 import db from '../../db.json'
 import GitHubCorner from "../../src/Components/GitHubCorner";
+import {motion} from "framer-motion";
+import LoadingWidget from "../../src/Components/LoadingScreen";
 
 const screenStates = {
 	QUIZ: 'QUIZ',
@@ -22,13 +24,18 @@ export default function QuizPage({questions, background, theme}) {
 
 	const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
 	const [btnState, setBtnState] = React.useState(0);
-	const [screenState, setScreenState] = React.useState(screenStates.QUIZ);
+	const [screenState, setScreenState] = React.useState(screenStates.LOADING);
 	const [currentQuestion, setCurrentQuestion] = React.useState(0);
 	const [results, setResults] = React.useState([]);
-
 	const totalQuestions = questions.length;
 	const questionIndex = currentQuestion;
 	const question = questions[questionIndex];
+
+	React.useEffect(() => {
+		setTimeout(() => {
+			setScreenState(screenStates.QUIZ);
+		}, 1 * 2000);
+	}, []);
 
 	const addResult = result => {
 		setResults([...results, result])
@@ -68,7 +75,16 @@ export default function QuizPage({questions, background, theme}) {
 
 	return (
 		<QuizBackground backgroundImage={background}>
-			<QuizContainer>
+			<QuizContainer
+				transition={{delay: 0, duration: 1}}
+				as={motion.section}
+				variants={{
+					show: {opacity: 1, y: '0'},
+					hidden: {opacity: 0, y: '700%'}
+				}}
+				initial='hidden'
+				animate='show'
+			>
 				<QuizLogo/>
 				{screenState === screenStates.QUIZ && (
 					<QuestionWidget
@@ -82,7 +98,7 @@ export default function QuizPage({questions, background, theme}) {
 					/>
 				)}
 
-				{/*{screenState === screenStates.LOADING && <LoadingWidget/>}*/}
+				{screenState === screenStates.LOADING && <LoadingWidget/>}
 
 				{screenState === screenStates.RESULT && <ResultWidget results={results} questions={questions} theme={theme}/>}
 			</QuizContainer>

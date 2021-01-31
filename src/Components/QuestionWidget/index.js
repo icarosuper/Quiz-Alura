@@ -1,6 +1,8 @@
 import Widget from "../Widget";
 import Button from "../Button";
 import React from "react";
+import BackLinkArrow from "../BackArrow";
+import {motion} from "framer-motion";
 
 export default function QuestionWidget({
 	                        question, questionIndex, totalQuestions, onSubmit,
@@ -10,6 +12,7 @@ export default function QuestionWidget({
 	return (
 		<Widget>
 			<Widget.Header>
+				<BackLinkArrow href={'/'}/>
 				<h3>
 					{`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
 				</h3>
@@ -45,10 +48,18 @@ export default function QuestionWidget({
 						const alternativeId = `alternative__${alternativeIndex}`;
 						return (
 							<Widget.Topic
-								as="label"
+								as={motion.label}
 								id={alternativeIndex}
 								key={alternativeId}
 								htmlFor={alternativeId}
+								transition={{delay: 0.1*alternativeIndex, duration: 0.5}}
+								variants={{
+									show: {y: '0'},
+									hidden: {y: '700%'}
+								}}
+								initial='hidden'
+								animate='show'
+
 							>
 								<input
 									id={alternativeId}
@@ -62,7 +73,16 @@ export default function QuestionWidget({
 						);
 					})}
 
-					<Button type="submit" disabled={btnValidation === undefined}>
+						<Button type="submit" disabled={btnValidation === undefined}
+					        transition={{delay: 0.1*question.alternatives.length, duration: 0.5}}
+					        as={motion.button}
+					        variants={{
+						        show: {y: '0'},
+						        hidden: {y: '700%'}
+					        }}
+					        initial='hidden'
+					        animate='show'
+					>
 						{btnState ? 'Avançar para próxima pergunta' : 'Confirmar reposta'}
 					</Button>
 				</form>
