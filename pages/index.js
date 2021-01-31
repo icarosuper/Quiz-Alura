@@ -28,8 +28,8 @@ export default function Home() {
 	const [nome, setName] = React.useState('');
 
 	return (
-		<QuizBackground backgroundImage={db.bg[0]}>
-			<Head>
+		<QuizBackground backgroundImage={db.bg}>
+			<Head title={'App dos quizes!'}>
 				<link rel="preconnect" href="https://fonts.gstatic.com"/>
 				<link
 					href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
@@ -76,8 +76,10 @@ export default function Home() {
 								.split('.');
 
 							return (
-								<Widget.Topic href={el}>
-									{`'${proj}' por ${user}`}
+								<Widget.Topic key={el} onClick={() => {
+									router.push(`/quiz/${proj}___${user}`)
+								}}>
+									{`${user}/${proj}`}
 								</Widget.Topic>
 							);
 						})}
@@ -85,7 +87,7 @@ export default function Home() {
 				</Widget>
 				<Footer/>
 			</QuizContainer>
-			<GitHubCorner projectUrl="https://github.com/icarosuper/Imersao-React-Alura"/>
+			<GitHubCorner projectUrl="https://github.com/icarosuper/Quiz-Alura"/>
 		</QuizBackground>
 	);
 }
